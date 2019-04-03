@@ -1,6 +1,4 @@
-package cn.tf.dubbo.producer.api.request;
-
-
+package cn.tf.dubbo.consumer.server.request;
 import lombok.Data;
 import lombok.ToString;
 
@@ -9,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @ToString
-public class PushOrderDto implements Serializable{
+public class RecordPushRequest implements Serializable{
 
     //商品id
     private Integer itemId;
@@ -19,30 +17,5 @@ public class PushOrderDto implements Serializable{
 
     //客户姓名
     private String customerName;
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
