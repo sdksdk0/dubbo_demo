@@ -10,9 +10,20 @@
     <dubbo:registry address="zookeeper://59.37.136.102:8200"  />
 
 
+<!--    <dubbo:reference id="orderServices"
+                     interface="cn.tf.dubbo.order.IOrderServices"/>-->
+
+    <dubbo:protocol name="hessian" />
+
     <dubbo:reference id="orderServices"
-                     interface="cn.tf.dubbo.order.IOrderServices"
-                     />
+                       interface="cn.tf.dubbo.order.IOrderServices"
+                       protocol="dubbo"  version="2.0" cluster="failfast">
+    </dubbo:reference>
+
+    <dubbo:reference id="orderQueryServices"
+                     interface="cn.tf.dubbo.order.IOrderQueryService"
+                      protocol="dubbo"
+    />
 
 
 </beans>

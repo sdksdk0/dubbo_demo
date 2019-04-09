@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 
-		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+		http://code.alibabatech.com/schema/dubbo
+		http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd"
+        default-autowire="byName">
 
-<!--提供方信息-->
+    <context:annotation-config />
+    <context:component-scan base-package="cn.tf.dubbo.order" />
+    <!--提供方信息-->
     <dubbo:application name="order-provider" owner="tf"/>
 
     <!--注册中心-->
-    <dubbo:registry id="zk1" address="zookeeper://59.37.136.102:8200"/>
+    <dubbo:registry address="zookeeper://59.37.136.102:8200"/>
+
+    <dubbo:monitor protocol="registry" />
+<!--
+    <dubbo:service interface="cn.tf.dubbo.order.IOrderServices" />-->
 
     <dubbo:protocol port="20880" name="dubbo"/>
 
-    <dubbo:monitor protocol="registry" />
+ <!--   <bean id="orderServices" class="cn.tf.dubbo.order.OrderServiceImpl" />-->
+    <!--增加hessian协议 -->
+    <dubbo:protocol name="hessian" port="8090" server="jetty" />
 
     <dubbo:service interface="cn.tf.dubbo.order.IOrderServices"
-                   ref="orderServices" protocol="dubbo" registry="zk1"/>
+                   ref="orderServices"   protocol="hessian" version="1.0"
+    />
 
-    <bean id="orderServices" class="cn.tf.dubbo.order.OrderServiceImpl"/>
+    <dubbo:service interface="cn.tf.dubbo.order.IOrderServices"
+                   ref="orderServices2"   protocol="hessian" version="2.0"/>
+
+    <dubbo:service interface="cn.tf.dubbo.order.IOrderQueryService"
+                   ref="orderQueryService"   protocol="dubbo"/>
 
 </beans>

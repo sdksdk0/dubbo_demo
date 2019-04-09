@@ -1,3 +1,4 @@
-cn\tf\dubbo\order\DoOrderRequest.class
+cn\tf\dubbo\order\IOrderQueryService.class
 cn\tf\dubbo\order\DoOrderResponse.class
 cn\tf\dubbo\order\IOrderServices.class
+cn\tf\dubbo\order\DoOrderRequest.class
